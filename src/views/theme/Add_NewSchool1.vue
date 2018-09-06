@@ -2,7 +2,7 @@
   <div class="animated fadeIn">
     <b-row>
       <b-col md="12">
-        <b-form>
+        <b-form v-on:submit.prevent="addContact">
           <b-card>
             <div slot="header">
               <strong>Add</strong> New School
@@ -10,7 +10,7 @@
             <!-- Bootstrap Vue has some problems with Inline forms that's why we use some standard bootstrap classes -->
 
               <label class="mr-sm-2" for="inlineInput1">Name: </label>
-              <b-input md="12" id="inlineInput1" type="text" placeholder="Jane Doe"></b-input>
+              <b-input md="12" id="inlineInput1" type="text" placeholder="Jane Doe" v-model="contact.name"></b-input>
 
             <div slot="footer">
               <b-button class="mr-sm-2" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Add</b-button>
@@ -30,12 +30,22 @@ export default {
   data() {
     return {
       selected: [], // Must be an array reference!
-      show: true
+      show: true,
+      contact:{}
     };
   },
   methods: {
     click() {
       // do nothing
+    },
+    addContact() {
+      this.$http.post('http://localhost:3003/api/name', this.contact, {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).then((response) => {
+                   this.$router.push({path: '/'})
+                })
     }
   }
 };

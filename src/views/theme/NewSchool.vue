@@ -7,7 +7,7 @@
       <template slot="action" slot-scope="data">
         <b-row>
           <b-button class="ml-sm-2" type="submit" size="sm" variant="primary" v-on:click="editClicked(data.item._id)"><i class="fa fa-edit"></i> Edit</b-button>
-          <b-button class="ml-sm-2" type="submit" size="sm" variant="danger"><i class="fa fa-trash"></i> delete</b-button>
+          <b-button class="ml-sm-2" type="submit" size="sm" variant="danger" v-on:click="ondelete(data.item._id)"><i class="fa fa-trash"></i> delete</b-button>
         </b-row>
       </template>
     </b-table>
@@ -215,7 +215,7 @@ export default {
         // }
       ]),
       fields: [
-        { key: "no"},
+        { key: "no" },
         { key: "schoolname" },
         { key: "year" },
         { key: "month" },
@@ -234,23 +234,23 @@ export default {
     };
   },
 
-  created: function(){
+  created: function() {
     this.fetchProductData();
   },
   methods: {
-    fetchProductData: function(){
-      this.$http.get('http://localhost:3003/api/contacts').then((response) => {
-          this.items = response.body;
-          console.log(response.body)
-      })
+    fetchProductData: function() {
+      this.$http.get("http://localhost:3003/api/contacts").then(response => {
+        this.items = response.body;
+        //console.log(response.body)
+      });
     },
-    Link (id) {
-      return `editschooldata/${id}`
+    Link(id) {
+      return `editschooldata/${id}`;
     },
-    editClicked (item) {
+    editClicked(item) {
       //console.log(item)
-      const Link = this.Link(item)
-      this.$router.push({path: Link})
+      const Link = this.Link(item);
+      this.$router.push({ path: Link });
     },
     getBadge(status) {
       return status === "Active"
@@ -263,6 +263,24 @@ export default {
     },
     getRowCount(items) {
       return items.length;
+    },
+    ondelete(id) {
+      console.log(id);
+      this.$http
+        .delete("http://localhost:3003/api/contact/" + id, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          for (var i = 0; i <= this.items.length; i++) {
+            if (this.items[i]["_id"] == id) {
+              this.items.splice(i, 1);
+              break;
+            }
+          }
+          //this.$router.push({path: '/schooldata'})
+        });
     }
   }
 };
