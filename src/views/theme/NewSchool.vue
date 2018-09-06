@@ -1,12 +1,14 @@
 <template>
   <b-card :header="caption">
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
-      <template slot="status" slot-scope="data">
+      <!-- <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
-      </template>
+      </template> -->
       <template slot="action" slot-scope="data">
-        <b-button class="mr-sm-2" type="submit" size="sm" variant="primary"><i class="fa fa-edit"></i> Edit</b-button>
-        <b-button class="mr-sm-2" type="submit" size="sm" variant="danger"><i class="fa fa-trash"></i> Add</b-button>
+        <b-row>
+          <b-button class="ml-sm-2" type="submit" size="sm" variant="primary" v-on:click="editClicked(data.item._id)"><i class="fa fa-edit"></i> Edit</b-button>
+          <b-button class="ml-sm-2" type="submit" size="sm" variant="danger"><i class="fa fa-trash"></i> delete</b-button>
+        </b-row>
       </template>
     </b-table>
     <nav>
@@ -61,162 +63,163 @@ export default {
   data: () => {
     return {
       items: shuffleArray([
-        {
-          username: "Samppa Nori",
-          registered: "2012/01/01",
-          role: "Member",
-          status: "Active"
-        },
-        {
-          username: "Estavan Lykos",
-          registered: "2012/02/01",
-          role: "Staff",
-          status: "Banned"
-        },
-        {
-          username: "Chetan Mohamed",
-          registered: "2012/02/01",
-          role: "Admin",
-          status: "Inactive"
-        },
-        {
-          username: "Derick Maximinus",
-          registered: "2012/03/01",
-          role: "Member",
-          status: "Pending"
-        },
-        {
-          username: "Friderik Dávid",
-          registered: "2012/01/21",
-          role: "Staff",
-          status: "Active"
-        },
-        {
-          username: "Yiorgos Avraamu",
-          registered: "2012/01/01",
-          role: "Member",
-          status: "Active"
-        },
-        {
-          username: "Avram Tarasios",
-          registered: "2012/02/01",
-          role: "Staff",
-          status: "Banned"
-        },
-        {
-          username: "Quintin Ed",
-          registered: "2012/02/01",
-          role: "Admin",
-          status: "Inactive"
-        },
-        {
-          username: "Enéas Kwadwo",
-          registered: "2012/03/01",
-          role: "Member",
-          status: "Pending"
-        },
-        {
-          username: "Agapetus Tadeáš",
-          registered: "2012/01/21",
-          role: "Staff",
-          status: "Active"
-        },
-        {
-          username: "Carwyn Fachtna",
-          registered: "2012/01/01",
-          role: "Member",
-          status: "Active"
-        },
-        {
-          username: "Nehemiah Tatius",
-          registered: "2012/02/01",
-          role: "Staff",
-          status: "Banned"
-        },
-        {
-          username: "Ebbe Gemariah",
-          registered: "2012/02/01",
-          role: "Admin",
-          status: "Inactive"
-        },
-        {
-          username: "Eustorgios Amulius",
-          registered: "2012/03/01",
-          role: "Member",
-          status: "Pending"
-        },
-        {
-          username: "Leopold Gáspár",
-          registered: "2012/01/21",
-          role: "Staff",
-          status: "Active"
-        },
-        {
-          username: "Pompeius René",
-          registered: "2012/01/01",
-          role: "Member",
-          status: "Active"
-        },
-        {
-          username: "Paĉjo Jadon",
-          registered: "2012/02/01",
-          role: "Staff",
-          status: "Banned"
-        },
-        {
-          username: "Micheal Mercurius",
-          registered: "2012/02/01",
-          role: "Admin",
-          status: "Inactive"
-        },
-        {
-          username: "Ganesha Dubhghall",
-          registered: "2012/03/01",
-          role: "Member",
-          status: "Pending"
-        },
-        {
-          username: "Hiroto Šimun",
-          registered: "2012/01/21",
-          role: "Staff",
-          status: "Active"
-        },
-        {
-          username: "Vishnu Serghei",
-          registered: "2012/01/01",
-          role: "Member",
-          status: "Active"
-        },
-        {
-          username: "Zbyněk Phoibos",
-          registered: "2012/02/01",
-          role: "Staff",
-          status: "Banned"
-        },
-        {
-          username: "Einar Randall",
-          registered: "2012/02/01",
-          role: "Admin",
-          status: "Inactive"
-        },
-        {
-          username: "Félix Troels",
-          registered: "2012/03/21",
-          role: "Staff",
-          status: "Active"
-        },
-        {
-          username: "Aulus Agmundr",
-          registered: "2012/01/01",
-          role: "Member",
-          status: "Pending"
-        }
+        // {
+        //   username: "Samppa Nori",
+        //   registered: "2012/01/01",
+        //   role: "Member",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Estavan Lykos",
+        //   registered: "2012/02/01",
+        //   role: "Staff",
+        //   status: "Banned"
+        // },
+        // {
+        //   username: "Chetan Mohamed",
+        //   registered: "2012/02/01",
+        //   role: "Admin",
+        //   status: "Inactive"
+        // },
+        // {
+        //   username: "Derick Maximinus",
+        //   registered: "2012/03/01",
+        //   role: "Member",
+        //   status: "Pending"
+        // },
+        // {
+        //   username: "Friderik Dávid",
+        //   registered: "2012/01/21",
+        //   role: "Staff",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Yiorgos Avraamu",
+        //   registered: "2012/01/01",
+        //   role: "Member",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Avram Tarasios",
+        //   registered: "2012/02/01",
+        //   role: "Staff",
+        //   status: "Banned"
+        // },
+        // {
+        //   username: "Quintin Ed",
+        //   registered: "2012/02/01",
+        //   role: "Admin",
+        //   status: "Inactive"
+        // },
+        // {
+        //   username: "Enéas Kwadwo",
+        //   registered: "2012/03/01",
+        //   role: "Member",
+        //   status: "Pending"
+        // },
+        // {
+        //   username: "Agapetus Tadeáš",
+        //   registered: "2012/01/21",
+        //   role: "Staff",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Carwyn Fachtna",
+        //   registered: "2012/01/01",
+        //   role: "Member",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Nehemiah Tatius",
+        //   registered: "2012/02/01",
+        //   role: "Staff",
+        //   status: "Banned"
+        // },
+        // {
+        //   username: "Ebbe Gemariah",
+        //   registered: "2012/02/01",
+        //   role: "Admin",
+        //   status: "Inactive"
+        // },
+        // {
+        //   username: "Eustorgios Amulius",
+        //   registered: "2012/03/01",
+        //   role: "Member",
+        //   status: "Pending"
+        // },
+        // {
+        //   username: "Leopold Gáspár",
+        //   registered: "2012/01/21",
+        //   role: "Staff",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Pompeius René",
+        //   registered: "2012/01/01",
+        //   role: "Member",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Paĉjo Jadon",
+        //   registered: "2012/02/01",
+        //   role: "Staff",
+        //   status: "Banned"
+        // },
+        // {
+        //   username: "Micheal Mercurius",
+        //   registered: "2012/02/01",
+        //   role: "Admin",
+        //   status: "Inactive"
+        // },
+        // {
+        //   username: "Ganesha Dubhghall",
+        //   registered: "2012/03/01",
+        //   role: "Member",
+        //   status: "Pending"
+        // },
+        // {
+        //   username: "Hiroto Šimun",
+        //   registered: "2012/01/21",
+        //   role: "Staff",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Vishnu Serghei",
+        //   registered: "2012/01/01",
+        //   role: "Member",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Zbyněk Phoibos",
+        //   registered: "2012/02/01",
+        //   role: "Staff",
+        //   status: "Banned"
+        // },
+        // {
+        //   username: "Einar Randall",
+        //   registered: "2012/02/01",
+        //   role: "Admin",
+        //   status: "Inactive"
+        // },
+        // {
+        //   username: "Félix Troels",
+        //   registered: "2012/03/21",
+        //   role: "Staff",
+        //   status: "Active"
+        // },
+        // {
+        //   username: "Aulus Agmundr",
+        //   registered: "2012/01/01",
+        //   role: "Member",
+        //   status: "Pending"
+        // }
       ]),
       fields: [
-        { key: "username" },
-        { key: "registered" },
-        { key: "role" },
-        { key: "status" },
+        { key: "no"},
+        { key: "schoolname" },
+        { key: "year" },
+        { key: "month" },
+        { key: "week" },
         { key: "elect_eur" },
         { key: "elect_kwh" },
         { key: "heating_eur" },
@@ -226,11 +229,29 @@ export default {
         { key: "action" }
       ],
       currentPage: 1,
-      perPage: 5,
+      perPage: 10,
       totalRows: 0
     };
   },
+
+  created: function(){
+    this.fetchProductData();
+  },
   methods: {
+    fetchProductData: function(){
+      this.$http.get('http://localhost:3003/api/contacts').then((response) => {
+          this.items = response.body;
+          console.log(response.body)
+      })
+    },
+    Link (id) {
+      return `editschooldata/${id}`
+    },
+    editClicked (item) {
+      //console.log(item)
+      const Link = this.Link(item)
+      this.$router.push({path: Link})
+    },
     getBadge(status) {
       return status === "Active"
         ? "success"
