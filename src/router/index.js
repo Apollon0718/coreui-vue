@@ -9,7 +9,10 @@ const Dashboard = () => import('@/views/Dashboard')
 
 const Colors = () => import('@/views/theme/Colors')
 const Typography = () => import('@/views/theme/Typography')
-
+const Add_NewSchool = () => import('@/views/theme/Add_NewSchool')
+const Add_NewSchool1 = () => import('@/views/theme/Add_NewSchool1')
+const Add_NewSchoolData = () => import('@/views/theme/Add_NewSchoolData')
+const SchoolData = () => import('@/views/theme/Add_NewSchool')
 const Charts = () => import('@/views/Charts')
 const Widgets = () => import('@/views/Widgets')
 
@@ -93,6 +96,21 @@ export default new Router({
               path: 'typography',
               name: 'Typography',
               component: Typography
+            },
+            {
+              path: 'add_newschool',
+              name: 'Add_NewSchool',
+              component: Add_NewSchool
+            },
+            {
+              path: 'add_newschool1',
+              name: 'Add NewSchool',
+              component: Add_NewSchool1
+            },
+            {
+              path: 'add_newschooldata',
+              name: 'Add NewSchoolData',
+              component: Add_NewSchoolData
             }
           ]
         },
@@ -100,6 +118,11 @@ export default new Router({
           path: 'charts',
           name: 'Charts',
           component: Charts
+        },
+        {
+          path: 'schooldata',
+          name: 'schooldata',
+          component: SchoolData
         },
         {
           path: 'widgets',
