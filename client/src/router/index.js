@@ -370,7 +370,7 @@ router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('auth_user');
 
   if (authRequired && !loggedIn) {
-    return next('/login');
+    return next('/pages/login');
   }
 
   next();
