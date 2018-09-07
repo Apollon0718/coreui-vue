@@ -26,7 +26,7 @@
                   <b-input-group-prepend>
                     <b-input-group-text>@</b-input-group-text>
                   </b-input-group-prepend>
-                  <b-form-input type="text" class="form-control" placeholder="Email" autocomplete="email" v-model="user.email" required/>
+                  <b-form-input type="email" class="form-control" placeholder="Email" autocomplete="email" v-model="user.email" required/>
                 </b-input-group>
 
                 <b-input-group class="mb-3">
