@@ -10,7 +10,12 @@
             <!-- Bootstrap Vue has some problems with Inline forms that's why we use some standard bootstrap classes -->
 
               <label class="mr-sm-2" for="inlineInput1">School Name: </label>
-              <b-input md="12" id="inlineInput1" type="text" placeholder="Jane Doe" v-model="contact.schoolname"></b-input>
+              <!-- <b-input md="12" id="inlineInput1" type="text" placeholder="Jane Doe" v-model="contact.schoolname"></b-input> -->
+              <b-form-select id="name"
+                    :plain="true"
+                    :options="selected"
+                    v-model="contact.schoolname">
+                  </b-form-select>
 
               <b-row class="form-group">
                 <b-col md="4">
@@ -121,12 +126,26 @@ export default {
   data() {
     return {
       contact: {}, // Must be an array reference!
-      show: true
+      show: true,
+      selected:[]
     };
+  },
+  created: function() {
+    this.getname();
   },
   methods: {
     click() {
       // do nothing
+    },
+    getname(){
+      this.$http.get("http://localhost:3003/api/names").then(response => {
+        for (var i = 0; i <= response.body.length; i++) {
+            this.selected.push(response.body[i]["name"]);
+
+            }
+          }
+        // console.log(response.body)
+      )
     },
     add(){
       console.log(this.contact)
