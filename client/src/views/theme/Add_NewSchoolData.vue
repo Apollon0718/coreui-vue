@@ -22,7 +22,7 @@
                   <label class="mr-sm-2" for="inlineInput1">year: </label>
                   <b-form-select id="year"
                     :plain="true"
-                    :options="[1,2,3,4,5,6,7,8,9,10,11,12]"
+                    :options="select_year"
                     v-model="contact.year">
                   </b-form-select>
                 </b-col>
@@ -38,7 +38,7 @@
                   <label class="mr-sm-2" for="inlineInput1">week: </label>
                   <b-form-select id="week"
                     :plain="true"
-                    :options="[1,2,3,4,5,6,7,8,9,10,11,12]"
+                    :options="select_week"
                     v-model="contact.week">
                   </b-form-select>
                 </b-col>
@@ -110,7 +110,7 @@
 
             <div slot="footer">
               <b-button class="mr-sm-2" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Add</b-button>
-              <b-button type="reset" size="sm" variant="danger"><i class="fa fa-ban"></i> Reset</b-button>
+              <b-button type="reset" size="sm" variant="danger" @click="goBack"><i class="fa fa-ban"></i> back</b-button>
             </div>
 
           </b-card>
@@ -127,7 +127,9 @@ export default {
     return {
       contact: {}, // Must be an array reference!
       show: true,
-      selected:[]
+      selected:[],
+      select_year:[],
+      select_week:[]
     };
   },
   created: function() {
@@ -136,6 +138,10 @@ export default {
   methods: {
     click() {
       // do nothing
+    },
+     goBack() {
+      this.$router.go(-1)
+      // this.$router.replace({path: '/users'})
     },
     getname(){
       this.$http.get("http://localhost:3003/api/names").then(response => {
@@ -146,6 +152,15 @@ export default {
           }
         // console.log(response.body)
       )
+
+      for (var i = 2015; i <= 2050; i++){
+        this.select_year.push(i);
+      }
+
+      for (var i = 1; i <= 53; i++){
+        this.select_week.push(i);
+      }
+
     },
     add(){
       console.log(this.contact)

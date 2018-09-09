@@ -87,7 +87,7 @@ exports.authenticate = async function (req, res, next) {
 
 //   try {
 //     let deleted = await UserService.deleteUser(id);
-//     return res.status(204).json({ status: 204, message: "Successfully User Deleted" })
+//     return res.status(204).json({ status: 204, message: "Successy User Deleted" })
 //   } catch (e) {
 //     return res.status(400).json({ status: 400, message: e.message })
 //   }

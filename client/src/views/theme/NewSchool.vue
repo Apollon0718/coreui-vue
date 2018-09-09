@@ -1,9 +1,17 @@
 <template>
+  
   <b-card :header="caption">
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <label class="mr-sm-2" for="inlineInput1">School Name: </label>            
+    <select v-model="schoolname" class = "col-sm-12 mb-sm-2" v-on:change="fetchProductData">
+      <option v-for="name in names" >{{name}}</option>
+    </select><br>
+    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items,i" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <!-- <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template> -->
+      <template slot="no" slot-scope="data">
+        <strong></strong>
+      </template>
       <template slot="action" slot-scope="data">
         <b-row>
           <b-button class="ml-sm-2" type="submit" size="sm" variant="primary" v-on:click="editClicked(data.item._id)"><i class="fa fa-edit"></i> Edit</b-button>
@@ -22,15 +30,16 @@
  * Randomize array element order in-place.
  * Using Durstenfeld shuffle algorithm.
  */
-const shuffleArray = array => {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-};
+// const shuffleArray = array => {
+//   for (let i = array.length - 1; i > 0; i--) {
+//     for (let j = i-1; j > 0; j--){
+//       if(array[i].week < array[j].week){
+//     let temp = array[i];
+//     array[i] = array[j];
+//     array[j] = temp;
+//   }}
+//   return array;
+// }};
 
 export default {
   name: "newschool",
@@ -62,7 +71,7 @@ export default {
   },
   data: () => {
     return {
-      items: shuffleArray([]),
+      items: [],
       fields: [
         { key: "no" },
         { key: "schoolname" },
@@ -79,19 +88,41 @@ export default {
       ],
       currentPage: 1,
       perPage: 10,
-      totalRows: 0
+      totalRows: 0,
+      names:[],
+      schoolname:""
     };
   },
-
-  created: function() {
-    this.fetchProductData();
+  created: function(){
+    this.getname()
   },
+
+  // changed: function() {
+  //   this.fetchProductData()
+    
+  // },
   methods: {
     fetchProductData: function() {
       this.$http.get("http://localhost:3003/api/contacts").then(response => {
-        this.items = response.body;
-        //console.log(response.body)
+        this.items = [];
+        console.log(response.body[1].schoolname)
+        for (var i = 0; i <= response.body.length; i++) {
+            if(this.schoolname == response.body[i].schoolname){
+            this.items.push(response.body[i]);
+            }
+        }
+        
       });
+    },
+    getname(){
+      this.$http.get("http://localhost:3003/api/names").then(response => {
+        for (var i = 0; i <= response.body.length; i++) {
+            this.names.push(response.body[i]["name"]);
+
+            }
+          }
+        // console.log(response.body)
+      )
     },
     Link(id) {
       return `editschooldata/${id}`;

@@ -70,5 +70,24 @@ export default {
       ]
     },
 
-  ]
+  ],
+  created: function() {
+    this.get();
+  },
+  methods: {
+    get() {
+        // this.$http.get("http://localhost:3003/api/names").then(response => {
+        //     for (var i = 0; i <= response.body.length; i++) {
+        //         this.selected.push(response.body[i]["name"]);
+    
+        //         }
+        //       }
+        //     // console.log(response.body)
+        //   )
+        this.items.push({
+            name: 'Error 500',
+            url: '/pages/500',
+            icon: 'icon-star'
+          })
+    },
 }

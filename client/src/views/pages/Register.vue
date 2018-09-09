@@ -47,7 +47,7 @@
                   <b-input-group-prepend>
                     <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
                   </b-input-group-prepend>
-                  <b-form-input type="password" class="form-control" placeholder="re-password" autocomplete="re-password" />
+                  <b-form-input type="password" class="form-control" placeholder="re-password" v-model="user.re_password" />
                 </b-input-group>
 
                 <b-button type="submit" variant="success" block>Create Account</b-button>
@@ -55,11 +55,8 @@
             </b-card-body>
             <b-card-footer class="p-4">
               <b-row>
-                <b-col cols="6">
-                  <b-button block class="btn btn-facebook"><span>facebook</span></b-button>
-                </b-col>
-                <b-col cols="6">
-                  <b-button block class="btn btn-twitter" type="button"><span>twitter</span></b-button>
+                <b-col cols="12">
+                  <b-button block class="btn btn-facebook" @click="goBack"><span>To login</span></b-button>
                 </b-col>
               </b-row>
             </b-card-footer>
@@ -83,8 +80,15 @@ export default {
     click() {
       // do nothing
     },
+     goBack() {
+      this.$router.push({path: '/pages/login'})
+      // this.$router.replace({path: '/users'})
+    },
     addUser(){
       console.log(this.user)
+      if (this.user.password != this.user.re_password){
+        alert(`password doesn't match`); return false;
+      }
        this.$http.post('http://localhost:3003/api/user', this.user, {
                     headers : {
                         'Content-Type' : 'application/json'

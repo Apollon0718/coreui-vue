@@ -14,7 +14,7 @@
 
             <div slot="footer">
               <b-button class="mr-sm-2" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Add</b-button>
-              <b-button type="reset" size="sm" variant="danger"><i class="fa fa-ban"></i> Reset</b-button>
+              <b-button type="reset" size="sm" variant="danger" @click="goBack"><i class="fa fa-ban"></i> back</b-button>
             </div>
 
           </b-card>
@@ -37,6 +37,10 @@ export default {
   methods: {
     click() {
       // do nothing
+    },
+    goBack() {
+      this.$router.go(-1)
+      // this.$router.replace({path: '/users'})
     },
     addContact() {
       this.$http.post('http://localhost:3003/api/name', this.contact, {
