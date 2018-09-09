@@ -163,6 +163,30 @@ export default {
 
     },
     add(){
+      var elect_eur = parseFloat(this.contact.elect_eur);
+      var elect_kwh = parseFloat(this.contact.elect_kwh);
+      var heatingt_eur = parseFloat(this.contact.heating_eur);
+      var heating_kwh = parseFloat(this.contact.heating_kwh);
+      var water_eur = parseFloat(this.contact.water_eur);
+      var water_litres = parseFloat(this.contact.water_litres);
+      if(isNaN(elect_eur)){
+        alert('elect_eur is no number!!!')
+      }
+      if(isNaN(elect_kwh)){
+        alert('elect_kwh is no number!!!')
+      }
+      if(isNaN(heatingt_eur)){
+        alert('heating_eur is no number!!!')
+      }
+      if(isNaN(heating_kwh)){
+        alert('heating_kwh is no number!!!')
+      }
+      if(isNaN(water_eur)){
+        alert('water_eur is no number!!!')
+      }
+      if(isNaN(water_litres)){
+        alert('water_litres is no number!!!')
+      }
       console.log(this.contact)
       this.$http.post('http://localhost:3003/api/contact', this.contact, {
                     headers : {
